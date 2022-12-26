@@ -1,23 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
+import Homepage from './Components/Homepage'
+import Users from './Components/Users'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import AddUser from './Components/AddUser'
+import {useState} from 'react'
+import Button from 'react-bootstrap/Button';
+
 
 function App() {
+  const [update, setUpdate] = useState(0);
+  const [showAdder, setShowAdder] = useState(false);
+  const addUser = () => {
+    setShowAdder(e => !e);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{textAlign: 'center'}}>
+      <Homepage />
+      <Button variant="info"style={{marginTop:'20px', width: '50%'}} onClick={addUser}>Add New User</Button>
+      <Container>
+        <Row>
+          {showAdder && <AddUser userAdded={addUser} setUpdate={setUpdate}/>}
+          <Users update={update}/>
+        </Row>
+      </Container>
+      
     </div>
   );
 }
